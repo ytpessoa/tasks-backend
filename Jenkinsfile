@@ -38,11 +38,11 @@ pipeline{
             }
         }
 
-        // stage('Deploy Backend'){
-        //     steps{
-        //         deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
-        //     }
-        // }
+        stage('Deploy Backend'){
+            steps{
+                deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
+            }
+        }
         //precisa configurar o TomCat e integrar com o Jenkins
 
         stage('API Test'){
@@ -58,21 +58,21 @@ pipeline{
 
 
 
-        // stage('Deploy FrontEnd'){
-        //     steps{
-        //         dir('frontend'){ //baixa na pasta frontend
-        //             //baixa o código
-        //             git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
+        stage('Deploy FrontEnd'){
+            steps{
+                dir('frontend'){ //baixa na pasta frontend
+                    //baixa o código
+                    git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
 
-        //             //Build
-        //             bat 'mvn clean package' //nao tem testes
+                    //Build
+                    bat 'mvn clean package' //nao tem testes
                     
-        //             //deploy no Tomcat
-        //             deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
-        //         }
+                    //deploy no Tomcat
+                    deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
                 
-        //     }
-        // }
+            }
+        }
        
 
         stage('Functional Test'){ //no FrontEnd
