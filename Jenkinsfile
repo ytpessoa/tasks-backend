@@ -47,16 +47,47 @@ pipeline{
 
         stage('API Test'){
             steps{
-                //baixa os arquivos de teste
-                git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-api-test'
 
-                bat 'mvn test'
+                dir('api-test'){
+                    //baixa os arquivos de teste
+                    git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-api-test'
+                    bat 'mvn test'            
+                }
             }
         }
 
 
 
+        // stage('Deploy FrontEnd'){
+        //     steps{
+        //         dir('frontend'){ //baixa na pasta frontend
+        //             //baixa o código
+        //             git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
+
+        //             //Build
+        //             bat 'mvn clean package' //nao tem testes
+                    
+        //             //deploy no Tomcat
+        //             deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+        //         }
+                
+        //     }
+        // }
+       
+
+        stage('Functional Test'){ //no FrontEnd
+            steps{
+
+                dir('functional-test'){
+                    //baixa os arquivos de teste
+                    git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-functional-tests'
+                    bat 'mvn test'            
+                }
+            }
+        }
+
+
         
-    }
+    } // fim stages
 }
 
