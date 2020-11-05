@@ -33,15 +33,17 @@ pipeline{
             }
         }
 
-    //     stage('Quality Gate'){
-    //         steps{
-    //             sleep(5)
-    //             timeout(time: 1, unit: 'MINUTES'){
-    //                 waitForQualityGate abortPipeline: true //caso QG falhe, pare o pipeline
-    //             }
+    // 5 Quality Gate
+        stage('Quality Gate'){
+            steps{
+                sleep(5)
+                timeout(time: 1, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true //caso QG falhe, pare o pipeline
+                }
                 
-    //         }
-    //     }
+            }
+        }
+
 
     //     stage('Deploy Backend'){
     //         steps{
