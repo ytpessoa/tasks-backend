@@ -4,17 +4,19 @@ pipeline{
 
         //1 Jenkins já baixa do repositorio de Backend: https://github.com/ytpessoa/tasks-backend        
         
+        // 2
         stage('Build Backend'){
             steps{
                 bat 'mvn clean package -DskipTests=true' //maven sem executar testes
             }
         }
        
-    //    stage('Unit Tests'){
-    //         steps{
-    //             bat 'mvn test'  
-    //         }
-    //     }
+       // 3
+       stage('Unit Tests'){
+            steps{
+                bat 'mvn test'  
+            }
+        }
        
     //    stage('Sonar Analysis'){
     //        environment{
