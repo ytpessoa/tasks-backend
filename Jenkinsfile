@@ -1,18 +1,14 @@
 pipeline{
     agent any
     stages{
+
+        //1 Jenkins já baixa do repositorio de Backend: https://github.com/ytpessoa/tasks-backend        
         
-        stage('Teste'){
+        stage('Build Backend'){
             steps{
-                bat 'echo deu certo!!!!' 
+                bat 'mvn clean package -DskipTests=true' //maven sem executar testes
             }
         }
-        
-    //     stage('Build Backend'){
-    //         steps{
-    //             bat 'mvn clean package -DskipTests=true' //maven sem executar testes
-    //         }
-    //     }
        
     //    stage('Unit Tests'){
     //         steps{
