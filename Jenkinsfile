@@ -2,19 +2,25 @@ pipeline{
     agent any
     stages{
         
-        stage('Build Backend'){
+        stage('Teste'){
             steps{
-                bat 'mvn clean package -DskipTests=true' //maven sem executar testes
+                bat 'echo deu certo!!!!' 
             }
         }
+        
+    //     stage('Build Backend'){
+    //         steps{
+    //             bat 'mvn clean package -DskipTests=true' //maven sem executar testes
+    //         }
+    //     }
        
-       stage('Unit Tests'){
-            steps{
-                bat 'mvn test'  
-            }
-        }
+    //    stage('Unit Tests'){
+    //         steps{
+    //             bat 'mvn test'  
+    //         }
+    //     }
        
-       stage('Sonar Analysis'){
+    //    stage('Sonar Analysis'){
            environment{
                scannerHome = tool 'SONAR_SCANNER'
            }
