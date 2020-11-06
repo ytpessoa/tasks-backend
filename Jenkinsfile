@@ -18,6 +18,22 @@ pipeline{
             }
         }
 
+       stage('Build FrontEnd'){
+            steps{
+                dir('frontend'){ //baixa na pasta frontend
+                    //baixa o código
+                    git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
+
+                    //Build
+                    bat 'mvn clean package' //nao tem testes
+                    
+                    //deploy no Tomcat
+                    //deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
+                
+            }
+        }
+
       // 4 Integração com o Sonar 
        stage('Sonar Analysis'){
            environment{
@@ -67,22 +83,6 @@ pipeline{
 
 
 
-
-    stage('Deploy FrontEnd'){
-            steps{
-                dir('frontend'){ //baixa na pasta frontend
-                    //baixa o código
-                    git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
-
-                    //Build
-                    bat 'mvn clean package' //nao tem testes
-                    
-                    //deploy no Tomcat
-                    //deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
-                }
-                
-            }
-        }
 
     //     stage('Deploy FrontEnd'){
     //         steps{

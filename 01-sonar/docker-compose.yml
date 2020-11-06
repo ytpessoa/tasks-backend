@@ -1,0 +1,80 @@
+version: "3"
+services: 
+   
+    ########################################################
+    # sonarqube dockerizado                                #
+    ########################################################     
+    sonarqube: 
+        container_name: sonar
+        image: sonarqube:7.9.2-community
+        ports:
+            - "9000:9000"
+        networks:
+            - sonarnet
+        environment:
+            - sonar.jdbc.url=jdbc:postgresql://pg-sonar:5432/sonar
+        depends_on:
+            - pg-sonar
+        volumes:
+            - sonarqube_conf:/opt/sonarqube/conf
+            - sonarqube_data:/opt/sonarqube/data
+            - sonarqube_extensions:/opt/sonarqube/extensions
+            - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    
+    pg-sonar:
+        container_name: pg-sonar
+        image: postgres:9.6
+        networks:
+            - sonarnet
+        environment:
+            - POSTGRES_USER=sonar
+            - POSTGRES_PASSWORD=sonar
+        volumes:
+            - postgresql:/var/lib/postgresql
+            - postgresql_data:/var/lib/postgresql/data
+
+    
+    ########################################################
+    # banco de teste Postgres dockerizado para testes      #
+    ########################################################
+    
+    # pg-tasks:
+    #     container_name: pg-tasks
+    #     image: postgres:9.6 
+    #     ports: 
+    #         - 5433:5432 #out:int
+    #     environment: 
+    #         -  POSTGRES_DB=tasks
+    #         -  POSTGRES_PASSWORD=password
+    
+            
+networks:
+    sonarnet:
+volumes:
+    sonarqube_conf:
+    sonarqube_data:
+    sonarqube_extensions:
+    sonarqube_bundled-plugins:
+    postgresql:
+    postgresql_data:
+
+
+
+### Comandos #####
+
+# > docker stop teste
+# > docker-compose up
+
+# Docker desktop:
+#     wsl -d docker-desktop
+#     sysctl -w vm.max_map_count=500144
+    
+# Clean up:
+# docker ps -a
+# docker rm faf 8b0 
+# docker system prune
+
+# docker images 
+#             docker images -f "reference=*build*" -q
+#[powerShell] docker rmi $(docker images -f "reference=*build*" -q)
+#front: localhost:9999/tasks/
