@@ -67,8 +67,6 @@ pipeline{
 
 
 
-https://github.com/ytpessoa/tasks-frontend
-
 
     stage('Deploy FrontEnd'){
             steps{
