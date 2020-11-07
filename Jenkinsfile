@@ -35,31 +35,31 @@ pipeline{
     //         }
     //     }
 
-    //   // 4 Integração com o Sonar 
-    //    stage('Sonar Analysis'){
-    //        environment{
-    //            scannerHome = tool 'SONAR_SCANNER'
-    //        }
-    //         steps{
+      // 4 Integração com o Sonar 
+       stage('Sonar Analysis'){
+           environment{
+               scannerHome = tool 'SONAR_SCANNER'
+           }
+            steps{
 
-    //             withSonarQubeEnv('SONAR_LOCAL')
-    //             {
-    //                 bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=3273f98ab105ff5a4d91b6db4b46120f2a1d170e -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java"  
-    //             }
+                withSonarQubeEnv('SONAR_LOCAL')
+                {
+                    bat "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=DeployBack -Dsonar.host.url=http://localhost:9000 -Dsonar.login=3273f98ab105ff5a4d91b6db4b46120f2a1d170e -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/model/**,**Application.java"  
+                }
                 
-    //         }
-    //     }
+            }
+        }
 
-    // // 5 Quality Gate
-    //     stage('Quality Gate'){
-    //         steps{
-    //             sleep(5)
-    //             timeout(time: 1, unit: 'MINUTES'){
-    //                 waitForQualityGate abortPipeline: true //caso QG falhe, pare o pipeline
-    //             }
+    // 5 Quality Gate
+        stage('Quality Gate'){
+            steps{
+                sleep(5)
+                timeout(time: 1, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true //caso QG falhe, pare o pipeline
+                }
                 
-    //         }
-    //     }
+            }
+        }
 
 
     // //     stage('Deploy Backend'){
