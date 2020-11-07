@@ -19,21 +19,21 @@ pipeline{
         }
        
     //    //4
-    //    stage('Build FrontEnd'){
-    //         steps{
-    //             dir('frontend'){ //baixa na pasta frontend
-    //                 //baixa o código
-    //                 git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
+       stage('Build FrontEnd'){
+            steps{
+                dir('frontend'){ //baixa na pasta frontend
+                    //baixa o código
+                    git credentialsId: 'github_login', url: 'https://github.com/ytpessoa/tasks-frontend'
 
-    //                 //Build
-    //                 bat 'mvn clean package' //nao tem testes
+                    //Build
+                    bat 'mvn clean package' //nao tem testes
                     
-    //                 //deploy no Tomcat
-    //                 //deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
-    //             }
+                    //deploy no Tomcat
+                    //deploy adapters: [tomcat8(credentialsId: 'github_login', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
+                }
                 
-    //         }
-    //     }
+            }
+        }
 
       // 4 Integração com o Sonar 
        stage('Sonar Analysis'){
@@ -50,16 +50,16 @@ pipeline{
             }
         }
 
-    // 5 Quality Gate
-        stage('Quality Gate'){
-            steps{
-                sleep(5)
-                timeout(time: 1, unit: 'MINUTES'){
-                    waitForQualityGate abortPipeline: true //caso QG falhe, pare o pipeline
-                }
+    // // 5 Quality Gate
+    //     stage('Quality Gate'){
+    //         steps{
+    //             sleep(5)
+    //             timeout(time: 1, unit: 'MINUTES'){
+    //                 waitForQualityGate abortPipeline: true //caso QG falhe, pare o pipeline
+    //             }
                 
-            }
-        }
+    //         }
+    //     }
 
 
     // //     stage('Deploy Backend'){
