@@ -53,7 +53,7 @@ services:
             - DATABASE_PORT= 5432 #postgres
             - DATABASE_USER=postgres
             - DATABASE_PASSWD=passwd
-            #- DATABASE_UPDATE=none
+            - DATABASE_UPDATE=none #nao atualizar o banco a cada build
         depends_on: 
             - db-host
     

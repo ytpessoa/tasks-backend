@@ -123,5 +123,14 @@ pipeline{
 
         
     } // fim stages
+
+
+    // post{
+    //     always{
+             
+    //     }
+
+
+    // }
 }
 
