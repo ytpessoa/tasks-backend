@@ -1,0 +1,21 @@
+
+
+
+### Comandos #####
+
+# > docker stop teste
+# > docker-compose up
+
+# Docker desktop:
+#     wsl -d docker-desktop
+#     sysctl -w vm.max_map_count=500144
+    
+# Clean up:
+# docker ps -a
+# docker rm faf 8b0 
+# docker system prune
+
+# docker images 
+#             docker images -f "reference=*build*" -q
+#[powerShell] docker rmi $(docker images -f "reference=*build*" -q)
+#front: localhost:9999/tasks/
